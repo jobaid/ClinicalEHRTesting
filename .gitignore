@@ -1,0 +1,17 @@
+# Credentials. Never commit these - the suite signs in as a real account.
+.env
+.env.local
+*.env
+!.env.example
+
+node_modules/
+
+# Playwright output
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+.auth/
+
+# Manual test evidence may contain patient information from screenshots.
+evidence/

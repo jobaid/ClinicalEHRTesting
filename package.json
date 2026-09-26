@@ -1,0 +1,23 @@
+{
+  "name": "2set-testing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Automated and manual test suite for the ClinicalEHRApplication deployment at 2set.com",
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test tests/01-smoke.spec.js",
+    "test:auth": "playwright test tests/02-auth.spec.js",
+    "test:api": "playwright test tests/06-api-authorization.spec.js",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen https://2set.com",
+    "install:browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "dotenv": "^16.4.7"
+  }
+}
