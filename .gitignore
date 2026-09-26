@@ -15,3 +15,6 @@ playwright/.cache/
 
 # Manual test evidence may contain patient information from screenshots.
 evidence/
+
+# Excel lock files, created while a workbook is open
+~$*

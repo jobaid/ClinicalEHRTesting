@@ -91,13 +91,52 @@ BASE_URL=http://localhost:5173 IS_PRODUCTION=false ALLOW_WRITES=true npm test
 │   ├── 04-claims.spec.js       Claim workspace, CMS-1500 preview, validation, print modes
 │   ├── 05-modules.spec.js      Ledger consistency, patients, reports, records, Rx
 │   └── 06-api-authorization.spec.js   401 / 403 on every gated route
-└── manual/
-    ├── TEST-PLAN.md            Scope, approach, severity, risks, deploy verification
-    ├── TEST-CASES.md           ~150 numbered cases across 13 areas
-    ├── REGRESSION-CHECKLIST.md Post-deploy pass, about 30 minutes
-    ├── BUG-REPORT-TEMPLATE.md  Defect template with severity guidance
-    └── TEST-DATA.md            Accounts, fixtures, and the files to test uploads with
+├── manual/
+│   ├── Manual-Test-Execution.xlsx   The workbook a tester fills in (see below)
+│   ├── TEST-PLAN.md            Scope, approach, severity, risks, deploy verification
+│   ├── TEST-CASES.md           143 numbered cases across 13 areas — the source of truth
+│   ├── REGRESSION-CHECKLIST.md Post-deploy pass, about 30 minutes
+│   ├── BUG-REPORT-TEMPLATE.md  Defect template with severity guidance
+│   └── TEST-DATA.md            Accounts, fixtures, and the files to test uploads with
+└── scripts/
+    └── build-test-workbook.py  Regenerates the .xlsx from TEST-CASES.md
 ```
+
+---
+
+## The manual test workbook
+
+`manual/Manual-Test-Execution.xlsx` is what a tester actually works in. Six sheets:
+
+| Sheet | Purpose |
+|---|---|
+| **Instructions** | How to use it, which cells to edit, tag meanings, severity guidance, one worked example row |
+| **Run Info** | Build SHA, environment, tester, dates — plus calculated totals and a release recommendation |
+| **Test Cases** | All 143 cases with a Result dropdown, Notes, Defect ID, Tested By, Date. Filterable and frozen. |
+| **Summary** | Pass/fail/blocked/not-run per module and per priority, with exit criteria. Entirely calculated. |
+| **Defect Log** | 100 rows with Severity, Priority and Status dropdowns |
+| **Regression Checklist** | The 37-check post-deploy pass, with Result dropdowns and a verdict |
+
+**Yellow cells are the ones to fill in.** Everything else is generated or calculated. Results are
+colour-coded as you enter them, and `Run Info` turns a P1 failure into
+"DO NOT RELEASE — n P1 case(s) failed".
+
+### Regenerating it
+
+`TEST-CASES.md` is the source of truth — the cases are **parsed** from it, never retyped, so the
+two cannot drift apart. After editing the markdown:
+
+```bash
+pip install openpyxl        # once
+python scripts/build-test-workbook.py
+```
+
+This **overwrites** the workbook, so export or copy any in-progress results first.
+
+The file ships with formulas but no cached values (openpyxl cannot write them). Its
+`fullCalcOnLoad` flag is set, so Excel, LibreOffice and Google Sheets all calculate on open. A
+tool that only *reads* cells without calculating — `pandas`, a quick-look previewer — will show
+blanks for the calculated cells until the file has been opened once in a spreadsheet application.
 
 ---
 
