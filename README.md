@@ -1,10 +1,22 @@
-# 2set-testing
+# ClinicalEHRTesting
 
 Automated and manual test suite for the **ClinicalEHRApplication** deployment at
 `https://2set.com` — a practice management, billing and EHR system (React + Go + PostgreSQL).
 
 This is a separate project from the application itself, so the tests can be run and versioned
 without touching the product.
+
+---
+
+## At a glance
+
+| | |
+|---|---|
+| **Automated** | 67 Playwright tests across 6 files — smoke, auth, navigation, claims, other modules, and API authorization |
+| **Manual** | 143 hand-written test cases across 13 areas, a test plan, a 37-check post-deploy regression list, and a defect template |
+| **Test data workbook** | A 6-sheet Excel file generated from the manual test cases by a Python script (`openpyxl`) — live formulas for pass/fail totals, per-module and per-priority summaries, and a release recommendation |
+| **Found real defects** | An accessibility issue (`A11Y-002`, unlabelled password field) and a missing security header (`SEC-001`), both still open |
+| **Security focus** | Authorization is tested at the API level, not the UI — every permission-gated route is checked for a `401`/`403` server-side, because a hidden button in the browser proves nothing |
 
 ---
 
@@ -203,3 +215,9 @@ When the app adds an `id`/`for` pair or an `aria-label`, switch it back to `getB
 ```
 
 Keep `IS_PRODUCTION=true` in CI unless the pipeline has its own disposable instance.
+
+---
+
+## Author
+
+**Jobaid Azim**

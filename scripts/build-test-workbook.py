@@ -14,7 +14,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.formatting.rule import CellIsRule
 from openpyxl.comments import Comment
 
-PROJ = Path(r"C:\Users\MD JOBAID AZIM\2set-testing")
+PROJ = Path(__file__).resolve().parent.parent
 OUT = PROJ / "manual" / "Manual-Test-Execution.xlsx"
 
 # ---------- house style ----------

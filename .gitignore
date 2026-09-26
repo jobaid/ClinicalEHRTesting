@@ -18,3 +18,6 @@ evidence/
 
 # Excel lock files, created while a workbook is open
 ~$*
+
+# Local tool state - not part of the project
+.claude/
